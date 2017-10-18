@@ -11,15 +11,17 @@ var options = {
 
 var d = new Date();
 var n = d.toString();
+var origHTML = false; 
 
 navigator.geolocation.watchPosition( success, error, options );
 
 function success(position) {
   var coordenadas = position.coords;
+  var size = localStorage.length;
 
-//  console.log('Latitude: ' + coordenadas.latitude);
-//  console.log('Longitude: ' + coordenadas.longitude);
-  localStorage.setItem(n,'Latitude: ' + coordenadas.latitude + 
+  //console.log('Latitude: ' + coordenadas.latitude);
+  //console.log('Longitude: ' + coordenadas.longitude);
+  localStorage.setItem(size + 1,'Latitude: ' + coordenadas.latitude + 
   ',Longitude: ' + coordenadas.longitude + ',Accuracy: ' +
   coordenadas.accuracy + ',Altitude: ' + 
   coordenadas.altitude + ',AltitudeAccuracy: ' +
@@ -32,6 +34,20 @@ function error(error) {
   console.warn('ERROR(' + error.code + '): ' + error.message);
 };
 
+function clickLog() {
+  document.getElementById("result").innerHTML = origHTML;
+  if(typeof(Storage) !== "undefined") {
+    for (var i in localStorage) {
+      document.getElementById("result").innerHTML += "<br>" + localStorage[i] + "</br>";
+    }
+  } else {
+        document.getElementById("result").innerHTML = "Sorry, your browser does not support web storage...";
+  }
+};
+
 </script>
+<p><button onclick="clickLog()" type="button">Check log</button></p>
+<div id="result"></div>
+<p>Click the button to see the geolocation log.</p>
 </body>
 </html>
