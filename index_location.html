@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script>
+
+var options = {
+  enableHighAccuracy: true,
+  timeout: 6000,
+  maximumAge: 0
+};
+
+var d = new Date();
+var n = d.toString();
+
+navigator.geolocation.watchPosition( success, error, options );
+
+function success(position) {
+  var coordenadas = position.coords;
+
+//  console.log('Latitude: ' + coordenadas.latitude);
+//  console.log('Longitude: ' + coordenadas.longitude);
+  localStorage.setItem(n,'Latitude: ' + coordenadas.latitude + 
+  ',Longitude: ' + coordenadas.longitude + ',Accuracy: ' +
+  coordenadas.accuracy + ',Altitude: ' + 
+  coordenadas.altitude + ',AltitudeAccuracy: ' +
+  coordenadas.altitudeAccuracy + ',Heading: ' + 
+  coordenadas.heading +  ',Speed: ' + 
+  coordenadas.speed);
+};
+
+function error(error) {
+  console.warn('ERROR(' + error.code + '): ' + error.message);
+};
+
+</script>
+</body>
+</html>
